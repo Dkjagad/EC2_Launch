@@ -13,8 +13,10 @@ pipeline {
         stage('checkout') {
             steps {
                  script{
-                    
-                            git "https://github.com/Dkjagad/EC2_Launch.git"
+                            dir("terraform")
+                             {
+                                git "https://github.com/Dkjagad/EC2_Launch.git"
+                             }   
                         
                     }
                 }
@@ -23,15 +25,15 @@ pipeline {
         stage('Plan') {
             steps {
                  bat label: 'Terraform Init', script: '''
-                    
+                    cd terraform
                     terraform init
                 '''
                 bat label: 'Terraform Plan', script: '''
-                   
+                    cd terraform
                     terraform plan -out tfplan
                 '''
                 bat label: 'Terraform Show', script: '''
-                   
+                    cd terraform
                     terraform show -no-color tfplan > tfplan.txt
                 '''
             }
@@ -55,7 +57,7 @@ pipeline {
         stage('Apply') {
             steps {
                 bat label: 'Terraform Apply', script: '''
-                    
+                    cd terraform
                     terraform apply -input=false tfplan
                 '''
             }
