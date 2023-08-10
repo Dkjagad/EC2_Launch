@@ -23,15 +23,12 @@ pipeline {
         stage('Plan') {
             steps {
                  bat label: 'Terraform Init', script: '''
-                    cd terraform
                     terraform init
                 '''
                 bat label: 'Terraform Plan', script: '''
-                    cd terraform
                     terraform plan -out tfplan
                 '''
                 bat label: 'Terraform Show', script: '''
-                    cd terraform
                     terraform show -no-color tfplan > tfplan.txt
                 '''
             }
@@ -45,7 +42,7 @@ pipeline {
 
            steps {
                script {
-                    def plan = readFile 'terraform/tfplan.txt'
+                    def plan = readFile 'tfplan.txt'
                     input message: "Do you want to apply the plan?",
                     parameters: [text(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
                }
@@ -55,7 +52,6 @@ pipeline {
         stage('Apply') {
             steps {
                 bat label: 'Terraform Apply', script: '''
-                    cd terraform
                     terraform apply -input=false tfplan
                 '''
             }
