@@ -32,7 +32,7 @@ pipeline {
                 '''
                 bat label: 'Terraform Show', script: '''
                     cd terraform3
-                    terraform show -no-color tfplan > tfplan.txt
+                    terraform show -no-color terraform3/tfplan > tfplan.txt
                 '''
             }
         }
