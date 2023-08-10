@@ -14,6 +14,7 @@ pipeline {
             steps {
                  script{
                             dir("terraform")
+                             cd terraform
                              {
                                 git clone "https://github.com/Dkjagad/EC2_Launch.git"
                              }   
