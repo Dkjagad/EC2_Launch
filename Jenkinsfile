@@ -27,7 +27,7 @@ pipeline {
                     terraform plan -out tfplan
                 '''
                 bat label: 'Terraform Show', script: '''
-                    terraform show -no-color terraform/tfplan > tfplan.txt
+                    terraform show -no-color tfplan > tfplan.txt
                 '''
             }
         }
