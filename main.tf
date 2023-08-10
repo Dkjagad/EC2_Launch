@@ -3,7 +3,7 @@ region = "us-east-1"
 }
 
 resource "aws_instance" "mansi" {
-  ami           = "ami-0f34c5ae932e6f0e4" 
+  ami           = "ami-08a52ddb321b32a8c" 
   instance_type = "t2.micro"
   tags = {
       Name = "TF-Instance-youtube11"
