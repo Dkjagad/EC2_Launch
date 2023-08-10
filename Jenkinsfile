@@ -13,8 +13,8 @@ pipeline {
         stage('checkout') {
             steps {
                  bat label: 'Creating the GitHub Repo', script: '''
-                            dir("terraform1")
-                            cd terraform1
+                            dir("terraform2")
+                            cd terraform2
                             git clone "https://github.com/Dkjagad/EC2_Launch.git"  
                     '''
                 }
