@@ -13,9 +13,8 @@ pipeline {
         stage('checkout') {
             steps {
                  script{
-                        
-                        
-                            git clone "https://gitlab.com/mbbhawsar28/automation-of-ec2-instance.git"
+                    
+                            git "https://github.com/Dkjagad/EC2_Launch.git"
                         
                     }
                 }
