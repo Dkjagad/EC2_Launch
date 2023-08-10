@@ -13,7 +13,6 @@ pipeline {
         stage('checkout') {
             steps {
                  bat label: 'Creating the GitHub Repo', script: '''
-                            dir("terraform")
                             git clone "https://github.com/Dkjagad/EC2_Launch.git"  
                     '''
                 }
@@ -22,15 +21,12 @@ pipeline {
         stage('Plan') {
             steps {
                  bat label: 'Terraform Init', script: '''
-                    cd terraform
                     terraform init
                 '''
                 bat label: 'Terraform Plan', script: '''
-                    cd terraform
                     terraform plan -out tfplan
                 '''
                 bat label: 'Terraform Show', script: '''
-                    cd terraform
                     terraform show -no-color terraform/tfplan > tfplan.txt
                 '''
             }
@@ -44,7 +40,7 @@ pipeline {
 
            steps {
                script {
-                    def plan = readFile 'cd terraform/tfplan.txt'
+                    def plan = readFile 'cd tfplan.txt'
                     input message: "Do you want to apply the plan?",
                     parameters: [text(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
                }
@@ -54,7 +50,6 @@ pipeline {
         stage('Apply') {
             steps {
                 bat label: 'Terraform Apply', script: '''
-                    cd terraform
                     terraform apply -input=false tfplan
                 '''
             }
